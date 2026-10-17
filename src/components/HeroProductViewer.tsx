@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect, useTransition } from 'react';
 import { ProductAngle, FabricSwatch, WoodSwatch, BRAND_CONFIG, PerspectiveId } from '../data/config';
 import { getProductImage, preloadImage, preloadUpholsteryPerspectives } from '../data/assetManifest';
-import { ChevronLeft, ChevronRight, RotateCw, ZoomIn, Sparkles, Check } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RotateCw, ZoomIn, Check } from 'lucide-react';
 
 interface HeroProductViewerProps {
   selectedFabric: FabricSwatch;
   onSelectFabric: (f: FabricSwatch) => void;
   selectedWood: WoodSwatch;
   onSelectWood: (w: WoodSwatch) => void;
-  onOpenRoomPlacement: () => void;
 }
 
 export const HeroProductViewer: React.FC<HeroProductViewerProps> = ({
@@ -16,7 +15,6 @@ export const HeroProductViewer: React.FC<HeroProductViewerProps> = ({
   onSelectFabric,
   selectedWood,
   onSelectWood,
-  onOpenRoomPlacement,
 }) => {
   const [currentAngleIdx, setCurrentAngleIdx] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -167,24 +165,15 @@ export const HeroProductViewer: React.FC<HeroProductViewerProps> = ({
           <button
             type="button"
             onClick={() => setIsZoomed(!isZoomed)}
-            className={`flex items-center gap-1 px-2.5 py-1 text-[11px] font-mono rounded transition-colors cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono rounded transition-colors cursor-pointer ${
               isZoomed
                 ? 'bg-[#1C1612] text-[#F5EFE6]'
-                : 'bg-white/70 hover:bg-white text-[#1C1612] border border-[#1C1612]/10'
+                : 'bg-white/80 hover:bg-white text-[#1C1612] border border-[#1C1612]/15 shadow-xs'
             }`}
             title="Toggle magnifying zoom lens"
           >
             <ZoomIn size={12} />
-            <span className="hidden sm:inline">{isZoomed ? 'Reset Zoom' : 'Inspect Detail'}</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={onOpenRoomPlacement}
-            className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-mono rounded bg-[#B08D57]/15 hover:bg-[#B08D57]/25 text-[#4A3222] border border-[#B08D57]/30 transition-colors cursor-pointer"
-          >
-            <Sparkles size={12} className="text-[#B08D57]" />
-            <span>Place in Room</span>
+            <span>{isZoomed ? 'Reset Zoom' : 'Inspect Detail'}</span>
           </button>
         </div>
       </div>

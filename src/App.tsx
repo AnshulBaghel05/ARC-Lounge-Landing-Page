@@ -16,10 +16,9 @@ import { SocialProofSection } from './components/SocialProofSection';
 import { PhilosophySection } from './components/PhilosophySection';
 import { FooterSection } from './components/FooterSection';
 import { MarqueeStrip } from './components/MarqueeStrip';
-import { RoomPlacementStudio } from './components/RoomPlacementStudio';
 import { LeadReserveModal } from './components/LeadReserveModal';
 import { preloadCriticalAssets } from './data/assetManifest';
-import { ArrowDown, Sparkles } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 
 export default function App() {
   // Customizer selections (synced with URL search params)
@@ -75,7 +74,6 @@ export default function App() {
   const [activeRoomScene, setActiveRoomScene] = useState<RoomScene>(BRAND_CONFIG.roomScenes[0]);
 
   // Modals state
-  const [isRoomStudioOpen, setIsRoomStudioOpen] = useState(false);
   const [isReserveOpen, setIsReserveOpen] = useState(false);
 
   // Calculate live total price
@@ -122,14 +120,23 @@ export default function App() {
                 {BRAND_CONFIG.heroProduct.leadDescription}
               </p>
 
-              {/* Price & Lead Time Badge */}
-              <div className="pt-2 flex items-baseline gap-3">
-                <span className="font-mono text-2xl sm:text-3xl font-medium text-[#1C1612] tabular-nums">
-                  ${totalPrice.toLocaleString()} USD
-                </span>
-                <span className="text-xs font-mono text-[#4A3222] bg-[#E8DCC8] px-2.5 py-1 rounded-sm">
-                  {BRAND_CONFIG.heroProduct.leadTime}
-                </span>
+              {/* Price & Lead Time Badge with Zero-Risk Purchase Reassurance */}
+              <div className="pt-2 flex flex-col gap-2">
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-2xl sm:text-3xl font-medium text-[#1C1612] tabular-nums">
+                    ${totalPrice.toLocaleString()} USD
+                  </span>
+                  <span className="text-xs font-mono text-[#4A3222] bg-[#E8DCC8] px-2.5 py-1 rounded-sm">
+                    {BRAND_CONFIG.heroProduct.leadTime}
+                  </span>
+                </div>
+                <div className="text-[11px] font-mono text-[#4A3222]/80 flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <span>✓ Complimentary White-Glove In-Home Placement</span>
+                  <span className="text-[#B08D57]">·</span>
+                  <span>✓ 30-Day In-Home Trial</span>
+                  <span className="text-[#B08D57]">·</span>
+                  <span>✓ 10-Yr Guarantee</span>
+                </div>
               </div>
 
               {/* Action Buttons */}
@@ -139,16 +146,17 @@ export default function App() {
                   onClick={() => setIsReserveOpen(true)}
                   className="px-6 py-3.5 bg-[#1C1612] text-[#F5EFE6] text-xs font-mono uppercase tracking-widest rounded-sm hover:bg-[#4A3222] transition-colors shadow-md cursor-pointer"
                 >
-                  Reserve This Edition
+                  Reserve Handcrafted Edition
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => setIsRoomStudioOpen(true)}
+                  onClick={() => {
+                    document.getElementById('customizer')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className="px-5 py-3.5 bg-white/70 hover:bg-white border border-[#1C1612]/20 text-[#1C1612] text-xs font-mono uppercase tracking-widest rounded-sm transition-colors shadow-xs flex items-center gap-2 cursor-pointer"
                 >
-                  <Sparkles size={14} className="text-[#B08D57]" />
-                  <span>Place in Your Room</span>
+                  <span>Customize Finishes (4 Textiles · 3 Woods)</span>
                 </button>
               </div>
 
@@ -176,7 +184,6 @@ export default function App() {
                 onSelectFabric={setSelectedFabric}
                 selectedWood={selectedWood}
                 onSelectWood={setSelectedWood}
-                onOpenRoomPlacement={() => setIsRoomStudioOpen(true)}
               />
             </div>
           </div>
@@ -216,7 +223,6 @@ export default function App() {
             onSelectWood={setSelectedWood}
             totalPrice={totalPrice}
             onOpenReserve={() => setIsReserveOpen(true)}
-            onOpenRoomPlacement={() => setIsRoomStudioOpen(true)}
             onShareConfig={handleShareConfig}
             shareCopied={shareCopied}
           />
@@ -236,7 +242,6 @@ export default function App() {
           onSelectFabric={setSelectedFabric}
           selectedWood={selectedWood}
           onSelectWood={setSelectedWood}
-          onOpenRoomPlacement={() => setIsRoomStudioOpen(true)}
           onOpenReserve={() => setIsReserveOpen(true)}
         />
 
@@ -256,16 +261,6 @@ export default function App() {
         {/* SECTION 9: FINAL CTA & FOOTER */}
         <FooterSection onOpenReserve={() => setIsReserveOpen(true)} />
       </main>
-
-      {/* Upgraded Room Placement Studio Modal */}
-      <RoomPlacementStudio
-        isOpen={isRoomStudioOpen}
-        onClose={() => setIsRoomStudioOpen(false)}
-        selectedFabric={selectedFabric}
-        onSelectFabric={setSelectedFabric}
-        selectedWood={selectedWood}
-        onReserveFromRoom={() => setIsReserveOpen(true)}
-      />
 
       {/* Direct Atelier Reservation Lead Modal */}
       <LeadReserveModal

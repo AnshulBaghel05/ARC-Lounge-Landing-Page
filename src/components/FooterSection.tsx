@@ -16,15 +16,6 @@ export const FooterSection: React.FC<FooterSectionProps> = ({ onOpenReserve }) =
     setSubscribed(true);
   };
 
-  const palette = [
-    { name: 'Cream', hex: '#F5EFE6' },
-    { name: 'Beige', hex: '#E8DCC8' },
-    { name: 'Sand', hex: '#D4C2A6' },
-    { name: 'Walnut', hex: '#4A3222' },
-    { name: 'Espresso', hex: '#2A1D14' },
-    { name: 'Brass', hex: '#B08D57' },
-    { name: 'Ink', hex: '#1C1612' },
-  ];
 
   return (
     <footer className="bg-[#1C1612] text-[#F5EFE6] pt-24 pb-14 border-t border-[#F5EFE6]/10">
@@ -112,40 +103,32 @@ export const FooterSection: React.FC<FooterSectionProps> = ({ onOpenReserve }) =
             )}
           </div>
 
-          {/* Column 4: Visual System Palette Display */}
+          {/* Column 4: Client Concierge & Trade Services */}
           <div className="space-y-3">
             <span className="text-[#F5EFE6] text-xs font-mono uppercase tracking-wider block font-semibold">
-              Visual System Palette
+              Client Concierge & Trade
             </span>
-            <div className="grid grid-cols-7 gap-1.5 pt-1">
-              {palette.map((p) => (
-                <div key={p.name} className="flex flex-col items-center gap-1">
-                  <div
-                    className="w-full h-8 rounded-xs border border-white/10"
-                    style={{ backgroundColor: p.hex }}
-                    title={`${p.name} (${p.hex})`}
-                  />
-                  <span className="text-[8px] font-mono text-[#D4C2A6]/60 truncate w-full text-center">
-                    {p.name}
-                  </span>
-                </div>
-              ))}
+            <div className="space-y-2 text-xs text-[#D4C2A6]/80 leading-relaxed font-sans">
+              <p>Direct Inquiries: <span className="text-[#F5EFE6] font-mono text-[11px] block">concierge@forma-living.design</span></p>
+              <p>Trade & Architecture Program: <span className="text-[#D4C2A6] block">AIA / ASID commercial specifications & volume tier schedules.</span></p>
+              <p className="text-[11px] font-mono text-[#B08D57]">
+                White-Glove Delivery Worldwide
+              </p>
             </div>
-            <p className="text-[10px] font-mono text-[#D4C2A6]/60 pt-2 leading-tight">
-              Type: Cormorant Garamond · DM Sans
-            </p>
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Case Study / Demo Disclaimer */}
-        <div className="pt-8 border-t border-[#F5EFE6]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono text-[#D4C2A6]/60">
+        {/* Bottom Bar: Copyright & Authentic Provenance */}
+        <div className="pt-8 border-t border-[#F5EFE6]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono text-[#D4C2A6]/70">
           <div>
             © {new Date().getFullYear()} FORMA LIVING ATELIER. ALL RIGHTS RESERVED.
           </div>
-          <div className="text-center sm:text-right">
-            <span>PORTFOLIO CASE STUDY · AWWWARDS SOTD SPECIFICATION</span>
-            <span className="mx-2">·</span>
-            <span className="text-[#B08D57]">DEMO PROTOTYPE</span>
+          <div className="text-center sm:text-right flex flex-wrap items-center justify-center gap-2">
+            <span>OFFICIAL ATELIER EDITION</span>
+            <span className="text-white/30">·</span>
+            <span>MANUFACTURED BY STELLAR WORKS</span>
+            <span className="text-white/30">·</span>
+            <span className="text-[#B08D57]">ANSI/BIFMA X5.4 CERTIFIED</span>
           </div>
         </div>
       </div>

@@ -74,13 +74,13 @@ export const LeadReserveModal: React.FC<LeadReserveModalProps> = ({
           <div>
             <div className="mb-6">
               <span className="text-[10px] font-mono tracking-widest uppercase text-[#B08D57] block">
-                Direct Atelier Allocation
+                Direct Atelier Commission · Stellar Works
               </span>
               <h3 className="font-serif-luxury text-3xl font-medium tracking-tight text-[#F5EFE6] mt-1">
-                Reserve the ARC
+                Reserve the ARC Lounge Chair
               </h3>
-              <p className="text-xs text-[#D4C2A6] mt-1">
-                Each piece is numbered and tailored by master artisans in Northern Italy.
+              <p className="text-xs text-[#D4C2A6] mt-1 leading-relaxed">
+                No immediate payment required today. Your build queue slot is reserved while our dedicated concierge coordinates complimentary physical fabric swatches, space clearance verification, and delivery preferences.
               </p>
             </div>
 
@@ -94,14 +94,15 @@ export const LeadReserveModal: React.FC<LeadReserveModalProps> = ({
                   {BRAND_CONFIG.heroProduct.name}
                 </div>
                 <div className="text-xs text-[#D4C2A6]">
-                  {selectedFabric.name} · {selectedWood.name}
+                  {selectedFabric.name} · Solid {selectedWood.name}
                 </div>
               </div>
               <div className="text-right">
-                <span className="text-xs font-mono text-[#D4C2A6] block">Deposit / Total</span>
-                <span className="text-xl font-mono font-medium text-[#F5EFE6] tabular-nums">
+                <span className="text-xs font-mono text-[#D4C2A6] block">Total Commission</span>
+                <span className="text-xl font-mono font-medium text-[#F5EFE6] tabular-nums block">
                   ${totalPrice.toLocaleString()} USD
                 </span>
+                <span className="text-[9px] font-mono text-[#B08D57]">No deposit required today</span>
               </div>
             </div>
 
@@ -172,9 +173,9 @@ export const LeadReserveModal: React.FC<LeadReserveModalProps> = ({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 bg-[#F5EFE6] hover:bg-[#E8DCC8] text-[#1C1612] font-medium text-xs uppercase tracking-widest rounded-sm transition-all shadow-md cursor-pointer disabled:opacity-50 mt-2"
+                className="w-full py-3.5 bg-[#F5EFE6] hover:bg-[#E8DCC8] text-[#1C1612] font-medium text-xs uppercase tracking-widest rounded-sm transition-all shadow-md cursor-pointer disabled:opacity-50 mt-2 font-mono"
               >
-                {isSubmitting ? 'Confirming Atelier Queue...' : 'Confirm Reservation Request'}
+                {isSubmitting ? 'Confirming Atelier Queue...' : 'Confirm Reservation Request · No Payment Required Today'}
               </button>
             </form>
 

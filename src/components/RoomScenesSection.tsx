@@ -4,7 +4,6 @@ import { preloadImage } from '../data/assetManifest';
 import {
   ChevronLeft,
   ChevronRight,
-  Sparkles,
   Maximize2,
   X,
   Compass,
@@ -23,7 +22,6 @@ interface RoomScenesSectionProps {
   onSelectFabric: (f: FabricSwatch) => void;
   selectedWood: WoodSwatch;
   onSelectWood: (w: WoodSwatch) => void;
-  onOpenRoomPlacement: () => void;
   onOpenReserve?: () => void;
 }
 
@@ -34,7 +32,6 @@ export const RoomScenesSection: React.FC<RoomScenesSectionProps> = ({
   onSelectFabric,
   selectedWood,
   onSelectWood,
-  onOpenRoomPlacement,
   onOpenReserve,
 }) => {
   const [showHotspots, setShowHotspots] = useState(true);
@@ -166,11 +163,11 @@ export const RoomScenesSection: React.FC<RoomScenesSectionProps> = ({
 
             <button
               type="button"
-              onClick={onOpenRoomPlacement}
+              onClick={() => setIsLightboxOpen(true)}
               className="flex items-center gap-2 px-4 py-2 rounded-sm bg-[#B08D57] hover:bg-[#C9A063] text-[#16120F] text-xs font-mono font-semibold uppercase tracking-wider transition-colors shadow-md cursor-pointer"
             >
-              <Sparkles size={13} />
-              <span>Spatial Room Visualizer</span>
+              <Maximize2 size={13} />
+              <span>Fullscreen Gallery</span>
             </button>
           </div>
         </div>
@@ -484,7 +481,7 @@ export const RoomScenesSection: React.FC<RoomScenesSectionProps> = ({
             </span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
             {scenes.map((scene, idx) => {
               const isSelected = scene.id === currentScene.id;
               return (
@@ -531,80 +528,146 @@ export const RoomScenesSection: React.FC<RoomScenesSectionProps> = ({
       {/* Fullscreen High-Resolution Lightbox Modal */}
       {isLightboxOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col justify-between p-4 sm:p-8 animate-fade-in"
+          className="fixed inset-0 z-50 bg-[#0C0A09]/98 backdrop-blur-2xl flex flex-col h-screen w-screen overflow-hidden select-none animate-fade-in"
           role="dialog"
           aria-modal="true"
         >
-          {/* Top Bar */}
-          <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#B08D57]">
-                Architectural Editorial View · Scene 0{safeIdx + 1} of 0{scenes.length}
-              </span>
-              <h3 className="font-serif-luxury text-xl sm:text-2xl text-[#F5EFE6]">
-                {currentScene.title} — {currentScene.subtitle}
+          {/* Fixed Top Bar (Guaranteed on top of image, never obscured) */}
+          <header className="shrink-0 z-40 bg-[#16120F]/95 backdrop-blur-md border-b border-white/15 px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4 shadow-lg">
+            <div className="min-w-0 pr-2">
+              <div className="flex items-center gap-2 mb-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#B08D57]" />
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#B08D57] font-semibold truncate">
+                  Architectural View · Scene 0{safeIdx + 1} of 0{scenes.length}
+                </span>
+              </div>
+              <h3 className="font-serif-luxury text-lg sm:text-2xl text-[#F5EFE6] truncate leading-tight">
+                {currentScene.title} <span className="hidden md:inline text-white/40 font-light">— {currentScene.subtitle}</span>
               </h3>
             </div>
 
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={handlePrev}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-[#F5EFE6] flex items-center justify-center transition-colors cursor-pointer"
-                title="Previous image (Left Arrow)"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-[#F5EFE6] flex items-center justify-center transition-colors cursor-pointer"
-                title="Next image (Right Arrow)"
-              >
-                <ChevronRight size={20} />
-              </button>
+            {/* Top Bar Action Controls: Prev, Next, and Exit */}
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              {/* Header Navigation Controls (Desktop & Mobile) */}
+              <div className="flex items-center bg-white/5 border border-white/15 rounded-md p-1 shadow-sm">
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="px-2.5 sm:px-3 py-1.5 rounded text-xs font-mono text-[#F5EFE6] hover:bg-[#B08D57] hover:text-[#16120F] flex items-center gap-1 transition-colors cursor-pointer"
+                  title="Previous image (Left Arrow key)"
+                  aria-label="Previous scene"
+                >
+                  <ChevronLeft size={16} />
+                  <span className="hidden sm:inline">Prev</span>
+                </button>
+                <span className="text-white/20 px-1 font-mono text-xs">|</span>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="px-2.5 sm:px-3 py-1.5 rounded text-xs font-mono text-[#F5EFE6] hover:bg-[#B08D57] hover:text-[#16120F] flex items-center gap-1 transition-colors cursor-pointer"
+                  title="Next image (Right Arrow key)"
+                  aria-label="Next scene"
+                >
+                  <span className="hidden sm:inline">Next</span>
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+
+              {/* Exit Fullscreen Button with High Contrast & Guaranteed Prominence */}
               <button
                 type="button"
                 onClick={() => setIsLightboxOpen(false)}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-[#F5EFE6] flex items-center justify-center transition-colors cursor-pointer ml-2"
-                title="Close lightbox (Escape)"
+                className="px-3.5 sm:px-4 py-2 bg-[#B08D57] hover:bg-[#C9A063] active:bg-[#977644] text-[#16120F] font-mono text-xs font-semibold uppercase tracking-wider rounded-md flex items-center gap-1.5 transition-all shadow-md cursor-pointer border border-[#C9A063]"
+                title="Exit Fullscreen (Escape key)"
+                aria-label="Exit fullscreen viewer"
               >
-                <X size={20} />
+                <X size={16} className="shrink-0" />
+                <span className="hidden xs:inline sm:inline">Exit</span>
               </button>
             </div>
-          </div>
+          </header>
 
-          {/* Fullscreen Image Canvas */}
-          <div className="relative flex-1 flex items-center justify-center p-2 sm:p-6 overflow-hidden">
+          {/* Fullscreen Image Canvas Stage */}
+          <div className="relative flex-1 min-h-0 w-full flex items-center justify-center p-3 sm:p-6 md:p-8 overflow-hidden bg-black/40">
+            {/* Flanking Floating Previous Arrow */}
+            <button
+              type="button"
+              onClick={handlePrev}
+              className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#16120F]/90 hover:bg-[#B08D57] text-[#F5EFE6] hover:text-[#16120F] border border-[#B08D57]/40 hover:border-[#B08D57] flex items-center justify-center transition-all shadow-2xl cursor-pointer hover:scale-105 active:scale-95 group focus:outline-none focus:ring-2 focus:ring-[#B08D57]"
+              aria-label="Previous image"
+              title="Previous scene (Left Arrow key)"
+            >
+              <ChevronLeft size={22} className="transition-transform group-hover:-translate-x-0.5" />
+            </button>
+
+            {/* Flanking Floating Next Arrow */}
+            <button
+              type="button"
+              onClick={handleNext}
+              className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#16120F]/90 hover:bg-[#B08D57] text-[#F5EFE6] hover:text-[#16120F] border border-[#B08D57]/40 hover:border-[#B08D57] flex items-center justify-center transition-all shadow-2xl cursor-pointer hover:scale-105 active:scale-95 group focus:outline-none focus:ring-2 focus:ring-[#B08D57]"
+              aria-label="Next image"
+              title="Next scene (Right Arrow key)"
+            >
+              <ChevronRight size={22} className="transition-transform group-hover:translate-x-0.5" />
+            </button>
+
+            {/* Main High-Resolution Image */}
             <img
               src={currentScene.url}
-              alt={currentScene.title}
-              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              alt={`${BRAND_CONFIG.heroProduct.name} in ${currentScene.title}`}
+              className="max-w-full max-h-full object-contain rounded-xl shadow-2xl border border-white/10"
+              loading="eager"
             />
+
+            {/* Bottom floating position indicator */}
+            <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-20 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full border border-white/15 text-[11px] font-mono text-[#D4C2A6] pointer-events-none">
+              <span className="text-[#B08D57] font-semibold">{safeIdx + 1}</span> / {scenes.length} · {currentScene.timeOfDay.split('·')[0].trim()}
+            </div>
           </div>
 
-          {/* Lightbox Footer with Finish & Configure Actions */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10 pt-4">
-            <div className="text-xs text-[#D4C2A6] text-center sm:text-left">
-              <span className="text-white font-medium">Depicted:</span> ARC Lounge Chair in{' '}
-              <span className="text-[#B08D57]">{currentScene.depictedFabricName}</span> on Solid{' '}
-              <span className="text-[#B08D57]">{currentScene.depictedWoodName}</span> with Brushed Brass Caps
+          {/* Lightbox Footer with Finish & Conversion Actions */}
+          <footer className="shrink-0 z-40 bg-[#16120F]/95 backdrop-blur-md border-t border-white/15 px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
+            <div className="text-xs text-[#D4C2A6] text-center sm:text-left min-w-0 truncate">
+              <span className="text-white font-medium">Depicted Specification:</span> ARC Lounge Chair in{' '}
+              <span className="text-[#B08D57] font-medium">{currentScene.depictedFabricName}</span> on Solid{' '}
+              <span className="text-[#B08D57] font-medium">{currentScene.depictedWoodName}</span> with Brushed Brass Shoes
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5 shrink-0 w-full sm:w-auto justify-center">
               <button
                 type="button"
                 onClick={() => {
                   setIsLightboxOpen(false);
                   handleConfigureDepictedFinish();
                 }}
-                className="px-5 py-2.5 rounded-sm bg-[#B08D57] hover:bg-[#C9A063] text-[#16120F] text-xs font-mono font-semibold uppercase tracking-wider transition-colors shadow-md cursor-pointer flex items-center gap-1.5"
+                className="px-4 py-2 rounded-sm bg-[#B08D57] hover:bg-[#C9A063] text-[#16120F] text-xs font-mono font-semibold uppercase tracking-wider transition-colors shadow-md cursor-pointer flex items-center gap-1.5"
               >
                 <span>Configure This Finish</span>
                 <ArrowRight size={13} />
               </button>
+
+              {onOpenReserve && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsLightboxOpen(false);
+                    const matchingFabric = BRAND_CONFIG.fabrics.find(
+                      (f) => f.id === currentScene.depictedFabricId
+                    );
+                    const matchingWood = BRAND_CONFIG.woods.find(
+                      (w) => w.id === currentScene.depictedWoodId
+                    );
+                    if (matchingFabric) onSelectFabric(matchingFabric);
+                    if (matchingWood) onSelectWood(matchingWood);
+                    onOpenReserve();
+                  }}
+                  className="px-4 py-2 rounded-sm bg-white/10 hover:bg-white/20 text-[#F5EFE6] border border-white/20 text-xs font-mono uppercase tracking-wider transition-colors cursor-pointer"
+                >
+                  <span>Reserve Piece</span>
+                </button>
+              )}
             </div>
-          </div>
+          </footer>
         </div>
       )}
     </section>

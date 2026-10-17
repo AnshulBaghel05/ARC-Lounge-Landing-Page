@@ -102,7 +102,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               onClick={onOpenReserve}
               className="px-5 py-2.5 text-xs font-medium tracking-wider uppercase text-[#F5EFE6] bg-[#1C1612] hover:bg-[#4A3222] transition-colors rounded-sm shadow-xs whitespace-nowrap shrink-0 cursor-pointer"
             >
-              Reserve Chair
+              Reserve Edition
             </button>
           </div>
         </div>
@@ -132,7 +132,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               onClick={onOpenReserve}
               className="px-4 py-1.5 text-xs font-medium bg-[#B08D57] text-[#1C1612] font-semibold rounded-sm uppercase tracking-wider shadow-sm"
             >
-              Reserve
+              Reserve Edition
             </button>
           </div>
         </div>

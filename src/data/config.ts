@@ -35,14 +35,14 @@ export const BRAND_CONFIG = {
     name: 'ARC Lounge Chair',
     subtitle: 'Low-slung curved barrel-back lounge chair',
     leadDescription:
-      'Conceived by Hallgeir Homstvedt for Stellar Works, the ARC Lounge Chair introduces soft, embracing geometric curves to modern living sanctuaries. A continuous barrel shell envelops a deep, floating cushion, grounded on splayed solid hardwood legs tipped in brushed brass.',
+      'An architectural sanctuary designed for unhurried living. Conceived by Hallgeir Homstvedt for Stellar Works, the ARC Lounge Chair envelops the body with an ergonomic 18° low-slung recline and deep floating cushion—hand-tailored in tactile Scandinavian textiles and grounded on kiln-dried hardwood with brushed brass shoes.',
     designer: 'Hallgeir Homstvedt',
     manufacturer: 'Stellar Works',
-    edition: 'Official Atelier Collection',
+    edition: 'Official Atelier Edition',
     basePrice: 2450,
     currency: 'USD',
     currencySymbol: '$',
-    leadTime: '6–8 weeks (Handcrafted to order)',
+    leadTime: '6–8 weeks · Handcrafted to order',
     verifiedDimensions: {
       metric: {
         width: 900, // mm

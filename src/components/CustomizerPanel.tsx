@@ -1,7 +1,7 @@
 import React from 'react';
 import { FabricSwatch, WoodSwatch, BRAND_CONFIG, ProductConfiguration } from '../data/config';
 import { getProductImage, preloadUpholsteryPerspectives } from '../data/assetManifest';
-import { Check, Share2, Sparkles, Ruler, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Check, Share2, Ruler, ArrowRight, ShieldCheck, Eye } from 'lucide-react';
 
 interface CustomizerPanelProps {
   selectedFabric: FabricSwatch;
@@ -10,7 +10,6 @@ interface CustomizerPanelProps {
   onSelectWood: (w: WoodSwatch) => void;
   totalPrice: number;
   onOpenReserve: () => void;
-  onOpenRoomPlacement: () => void;
   onShareConfig: () => void;
   shareCopied: boolean;
 }
@@ -22,7 +21,6 @@ export const CustomizerPanel: React.FC<CustomizerPanelProps> = ({
   onSelectWood,
   totalPrice,
   onOpenReserve,
-  onOpenRoomPlacement,
   onShareConfig,
   shareCopied,
 }) => {
@@ -247,16 +245,31 @@ export const CustomizerPanel: React.FC<CustomizerPanelProps> = ({
         </div>
       </div>
 
+      {/* Zero-Risk Purchase Reassurance Strip */}
+      <div className="pt-6 pb-2 border-t border-[#F5EFE6]/10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] font-mono text-[#D4C2A6]/85">
+        <div className="flex items-center gap-2 justify-center sm:justify-start">
+          <ShieldCheck size={14} className="text-[#B08D57] shrink-0" />
+          <span>10-Yr Frame Guarantee</span>
+        </div>
+        <div className="flex items-center gap-2 justify-center sm:justify-start">
+          <span className="text-[#B08D57] font-bold text-xs">✓</span>
+          <span>White-Glove Placement Included</span>
+        </div>
+        <div className="flex items-center gap-2 justify-center sm:justify-start">
+          <span className="text-[#B08D57] font-bold text-xs">✓</span>
+          <span>30-Day Risk-Free Trial</span>
+        </div>
+      </div>
+
       {/* Bottom Actions Bar */}
-      <div className="pt-6 border-t border-[#F5EFE6]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <button
-          type="button"
-          onClick={onOpenRoomPlacement}
+      <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <a
+          href="#rooms"
           className="flex items-center gap-2 text-xs font-mono text-[#D4C2A6] hover:text-[#F5EFE6] border border-[#D4C2A6]/30 px-4 py-2 rounded transition-colors cursor-pointer w-full sm:w-auto justify-center"
         >
-          <Sparkles size={13} className="text-[#B08D57]" />
-          <span>Test This Spec in Your Room</span>
-        </button>
+          <Eye size={13} className="text-[#B08D57]" />
+          <span>View In 7 Curated Spaces</span>
+        </a>
 
         <div className="flex items-center gap-4 w-full sm:w-auto justify-end">
           <div className="text-right">
@@ -273,7 +286,7 @@ export const CustomizerPanel: React.FC<CustomizerPanelProps> = ({
             onClick={onOpenReserve}
             className="px-6 py-3 bg-[#B08D57] hover:bg-[#C9A063] text-[#1C1612] font-semibold text-xs font-mono uppercase tracking-wider rounded transition-colors shadow-md cursor-pointer flex items-center gap-2"
           >
-            <span>Proceed to Reservation</span>
+            <span>Reserve Custom Build</span>
             <ArrowRight size={14} />
           </button>
         </div>
