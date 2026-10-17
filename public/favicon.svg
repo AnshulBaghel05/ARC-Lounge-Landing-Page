@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Elegant dark circular container -->
+  <rect width="64" height="64" rx="14" fill="#1C1612"/>
+  
+  <!-- Curved Barrel Back Shell Silhouette in Cream -->
+  <path d="M14 26C14 17.1634 22.0589 10 32 10C41.9411 10 50 17.1634 50 26C50 32.5 45.5 37.5 39 39H25C18.5 37.5 14 32.5 14 26Z" fill="#F5EFE6"/>
+  
+  <!-- Floating Seat Cushion Arc in Sand -->
+  <path d="M20 33C20 31.3431 25.3726 30 32 30C38.6274 30 44 31.3431 44 33C44 35 38.5 37 32 37C25.5 37 20 35 20 33Z" fill="#E8DCC8"/>
+  
+  <!-- Splayed Walnut Legs -->
+  <!-- Left Leg -->
+  <line x1="22" y1="38" x2="16" y2="52" stroke="#B08D57" stroke-width="3" stroke-linecap="round"/>
+  <!-- Right Leg -->
+  <line x1="42" y1="38" x2="48" y2="52" stroke="#B08D57" stroke-width="3" stroke-linecap="round"/>
+  <!-- Back Legs Subtle -->
+  <line x1="27" y1="38" x2="25" y2="48" stroke="#4A3222" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="37" y1="38" x2="39" y2="48" stroke="#4A3222" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Brass Foot Tips -->
+  <circle cx="16" cy="52" r="1.5" fill="#B08D57"/>
+  <circle cx="48" cy="52" r="1.5" fill="#B08D57"/>
+</svg>
